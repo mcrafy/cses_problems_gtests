@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 
+
 std::vector<long long> solve_weird_algorithm(long long n);
 
 TEST(Introductory, WeirdAlgorithm_BaseCase) {
