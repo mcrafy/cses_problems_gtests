@@ -17,13 +17,14 @@ FetchContent_MakeAvailable(googletest)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# 3. Liste der CSES-Kategorien
-set(CSES_CATEGORIES
-        "01_Introductory"
-        "02_SortingAndSearching"
-        "03_DynamicProgramming"
-        "04_GraphAlgorithms"
-)
+# 3. KATEGORIEN AUTOMATISCH FINDEN (Nie wieder händisch eintragen!)
+file(GLOB CATEGORY_PATHS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/src" "${CMAKE_CURRENT_SOURCE_DIR}/src/*")
+set(CSES_CATEGORIES "")
+foreach(path ${CATEGORY_PATHS})
+    if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/${path}")
+        list(APPEND CSES_CATEGORIES "${path}")
+    endif()
+endforeach()
 
 # 4. Automatischer Setup-Loop
 foreach(category ${CSES_CATEGORIES})
@@ -53,10 +54,8 @@ foreach(category ${CSES_CATEGORIES})
 
             message(STATUS "[OK] Target erstellt: ${target_name}")
         else()
-            # Diese Zeile hatte eventuell ein fehlendes endif() danach
             message(WARNING "[FEHLER] Test-Datei nicht gefunden unter: ${test_file}")
-        endif() # Schließt das IF
+        endif()
 
-    endforeach() # Schließt den inneren FOREACH (Dateien)
-
-endforeach() # Schließt den äußeren FOREACH (Kategorien)
+    endforeach()
+endforeach()
