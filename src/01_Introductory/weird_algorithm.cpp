@@ -7,13 +7,6 @@
 
 std::vector<long long> solve_weird_algorithm(long long n) {
     std::vector<long long> sequence;
-    sequence.push_back(n);
-
-    while (n > 1) {
-        if (n % 2 == 0) n /= 2;
-        else n = 3 * n + 1;
-        sequence.push_back(n);
-    }
 
     return sequence;
 }
